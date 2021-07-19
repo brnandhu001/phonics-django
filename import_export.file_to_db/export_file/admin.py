@@ -1,8 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin #import exportmodeladmin is used to import a file to add object
 
-#pakage install...pip install django-import-export
-
 # Register your models here.
 
 from .models import *
