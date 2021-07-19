@@ -1,0 +1,18 @@
+{% extends "./base.html" %}
+{% block content %}
+
+<center>
+    {% if searched %}
+    <h1>search ...for {{ searched }}</h1>
+    {% for words in letters %}
+    <h1> this is from database :{{ words }}</h1>
+    <a href="/own/{{words.id}}"><button  class="button">click</button></a>
+
+    {% endfor %}
+
+    {% else %}
+    <h1>that word not in database</h1>
+
+    {% endif %}
+</center>
+{% endblock %}

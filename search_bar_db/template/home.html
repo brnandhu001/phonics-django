@@ -1,0 +1,29 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+ <center>
+     {% for words in letters  %}
+  <div class="all">
+      <div class="image">
+
+      </div>
+      <div class="details">
+           <h3>{{words.id}}</h3>
+
+          <h1>{{words.regular_word}}</h1>
+
+
+      </div>
+      <div>
+          <a href="/own/{{words.id}}"><button  class="button">click</button></a>
+      </div>
+  </div>
+
+
+  {% endfor %}
+</center>
+{% endblock %}
+
+</body>
+</html>
