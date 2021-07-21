@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<center>
+<h1>{{product.word_list}}</h1>
+<button onclick="splitIntoPhonics('{{product.word_list}}')">phonic</button>
+<br><br><br><br>
+
+  <h1 id="result"></h1>
+
+
+
+</center>
+
+
+
+
+
+
+<script>
+    console.log("hi")
+
+    function splitIntoPhonics(w) {
+
+
+    const phonics_list_4 = ["eigh", "ough"];
+    const phonics_list_3 = ["wor", "ear", "igh", "dge", "tch"];
+    const phonics_list_2 = ["qu", "er", "ur", "ir", "sh", "ee", "th", "ay", "ai", "ow", "ou", "aw", "au", "ew", "eu", "oy", "oi", "oo", "ch", "ng", "ea", "ar", "ck", "ed", "or", "wh", "ui", "oa", "ey", "ei", "ie", "kn", "gn", "wr", "ph", "oe", "ti", "si", "ci"];
+    const reg = /[^a-zA-Z]/;
+    if (reg.test(w)) { console.log("Unexpected characters occured[allowed chars(a to z)]"); return []; }
+    var output = [];
+
+    var remaining_words = w.toLowerCase();
+
+    while (remaining_words.length > 0) {
+        if (remaining_words.length >= 4) {
+            var succ = false;
+            var tempPW = remaining_words.slice(0, 4);
+            var tempRW = remaining_words.slice(4);
+            phonics_list_4.forEach((phonic) => {
+                if (phonic == tempPW) {
+                    succ = true;
+                    output.push(tempPW);
+                    remaining_words = tempRW;
+                }
+            });//foreach
+            if (succ == true) { continue; }
+        }//4
+        if (remaining_words.length >= 3) {
+            var succ = false;
+            var tempPW = remaining_words.slice(0, 3);
+            var tempRW = remaining_words.slice(3);
+            phonics_list_3.forEach((phonic) => {
+                if (phonic == tempPW) {
+                    succ = true;
+                    output.push(tempPW);
+                    remaining_words = tempRW;
+                }
+            });//foreach
+            if (succ == true) { continue; }
+        }//3
+        if (remaining_words.length >= 2) {
+            var succ = false;
+            var tempPW = remaining_words.slice(0, 2);
+            var tempRW = remaining_words.slice(2);
+            phonics_list_2.forEach((phonic) => {
+                if (phonic == tempPW) {
+                    succ = true;
+                    output.push(tempPW);
+                    remaining_words = tempRW;
+                }
+            });//foreach
+            if (succ == true) { continue; }
+        }//2
+        if (remaining_words.length >= 1) {
+            var tempPW = remaining_words.slice(0, 1);
+            var tempRW = remaining_words.slice(1);
+            output.push(tempPW);
+            remaining_words = tempRW;
+        }//1
+    }//while
+    document.getElementById("result").innerHTML="phonic :  " +  output ;
+
+
+    return output;
+
+}
+</script>
+
+
+</body>
+</html>
