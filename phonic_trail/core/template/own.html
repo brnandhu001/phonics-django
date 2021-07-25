@@ -3,20 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <style>
+         #div1 {
+            background-color: #4CAF50;
+
+
+            font-size: 30px;
+            margin-left: 130px;
+            margin-top: 50px;
+
+            background-color: #4CAF50;
+            color: white;
+
+
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .r {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        #phonic {
+            background-color: coral;
+            padding: auto;
+        }
+
+        .drop {
+            position: absolute;
+            top: 33%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+
+        }
+        .ls{
+            background-color: #bf3834;
+            width: 130px;
+            height: 200px;
+            margin-left: 50px;
+            margin-top: 0px;
+            position: relative;
+            top: 0%;
+
+
+
+
+        }
+        .du{
+            background-color: #bf3834;
+            width: 130px;
+            height: 200px;
+            margin-left: 50px;
+            margin-bottom: 0px;
+
+
+
+
+        }
+         .pre{
+          position: absolute;
+          right: 20px;
+          bottom:0px;
+      }
+      .prebtt{
+           background-color: #4CAF50; /* Green */
+           border: none;
+           color: white;
+           padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+      }
+
+
     </style>
 </head>
 <body>
-<center>
-<h1>{{product.word_list}}</h1>
-<button onclick="splitIntoPhonics('{{product.word_list}}')">phonic</button>
-<br><br><br><br>
+    <h1>{{product.word_list}}</h1>
+    <button onclick="splitIntoPhonics('{{product.word_list}}')">phonic</button>
+    <br><br><br><br>
 
-  <h1 id="result"></h1>
+    <h1 id="result" ></h1>
+
+  <div class="r">
+        <p id="dup"></p>
 
 
+        <p id="bt"></p>
+        <div id="select"></div>
 
-</center>
+        <p id="drop"></p>
+    </div>
+    <div class="drop">
+        <!-- <p id="drop"></p> -->
+    </div>
+    <div id="container">
+
+        <p id="res"></p>
+
+
+    </div>
+
+
+    </div>
+    <div class="pre">
+        <p id="pre"></p>
+
+    </div>
 
 
 
@@ -24,9 +128,12 @@
 
 
 <script>
-    console.log("hi")
 
-    function splitIntoPhonics(w) {
+var output = [];
+var x;
+
+
+function splitIntoPhonics(w) {
 
 
     const phonics_list_4 = ["eigh", "ough"];
@@ -35,7 +142,6 @@
     const reg = /[^a-zA-Z]/;
     if (reg.test(w)) { console.log("Unexpected characters occured[allowed chars(a to z)]"); return []; }
     var output = [];
-
     var remaining_words = w.toLowerCase();
 
     while (remaining_words.length > 0) {
@@ -85,10 +191,85 @@
             remaining_words = tempRW;
         }//1
     }//while
-    document.getElementById("result").innerHTML="phonic :  " +  output ;
+    document.getElementById('res').innerHTML=output;
+
+
+
+
+    function printBtn() {
+        for (var i = 0; i < output.length; i++) {
+           var btn = document.createElement("button");
+           btn.setAttribute("id", "div1");
+           var t = document.createTextNode(output[i]);
+           btn.appendChild(t);
+           document.getElementById("bt").appendChild(btn);
+           if (btn.length==output.length){
+           {break;}
+           }
+
+
+
+
+
+
+
+
+        }
+
+
+    }
+
+    printBtn();
+    function drop(){
+        for (i=0; i<output.length;i++){
+            var dp=document.createElement('button')
+
+            dp.setAttribute("class", "ls");
+            var q = document.createTextNode(`Blank, _, __, ___, ____,
+            =.==.===.====.
+            =1, =2,=3, =4,=5,
+            cur1, cur2, cur3, cur4`
+            );
+            var t = document.createTextNode(output[i]);
+
+            dp.appendChild(q);
+            document.getElementById("drop").appendChild(dp)
+
+        }
+    }
+    drop();
+    function dropup(){
+        for (i=0; i<output.length;i++){
+            var dp=document.createElement('button')
+            dp.setAttribute("class", "du");
+            var q = document.createTextNode(`Blank, _, __, ___, ____,
+            =.==.===.====.
+            =1, =2,=3, =4,=5,
+            cur1, cur2, cur3, cur4`
+            );
+            var t = document.createTextNode(output[i]);
+
+            dp.appendChild(q);
+            document.getElementById("dup").appendChild(dp)
+
+        }
+    }
+
+    dropup()
+    function pre(){
+    var btt = document.createElement("button");
+    btt.setAttribute("class", "prebtt");
+    btt.innerHTML = "preview";
+    document.getElementById("pre").appendChild(btt);
+
+
+
+    }
+    pre()
 
 
     return output;
+
 
 }
 </script>
